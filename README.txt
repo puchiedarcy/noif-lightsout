@@ -1,0 +1,1 @@
+An implementation of the game Lights Out written in JavaScript with no if statements.

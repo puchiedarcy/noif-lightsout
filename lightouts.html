@@ -1,0 +1,107 @@
+<html>
+<head>
+<title>Lights Out</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<style>
+    #board
+    {
+        width: 560px;
+        height: 560px;
+        margin: 0 auto;
+        border: 1px #333 solid;
+        background-color: #CCC;
+		padding: 5px;
+    }
+    
+    .square
+    {
+        width: 100px;
+        height: 100px;
+        border: 1px #666 solid;
+        float: left;
+        margin: 5px;
+        background-color: #FFC;
+    }
+    
+    .off
+    {
+        background-color: #FF82D6;
+    }
+    
+    .row
+    {
+        clear: both;
+    }
+</style>
+</head>
+<body>
+
+<div id="board">
+    <div class="row">
+        <div id="s1" class="square" onclick="squareClick(1);">
+        </div>
+        <div id="s2" class="square" onclick="squareClick(2);">
+        </div>
+        <div id="s3" class="square" onclick="squareClick(3);">
+        </div>
+        <div id="s4" class="square" onclick="squareClick(4);">
+        </div>
+        <div id="s5" class="square" onclick="squareClick(5);">
+        </div>
+    </div>
+    <div class="row">
+        <div id="s6" class="square" onclick="squareClick(6);">
+        </div>
+        <div id="s7" class="square" onclick="squareClick(7);">
+        </div>
+        <div id="s8" class="square" onclick="squareClick(8);">
+        </div>
+        <div id="s9" class="square" onclick="squareClick(9);">
+        </div>
+        <div id="s10" class="square" onclick="squareClick(10);">
+        </div>
+    </div>
+    <div class="row">
+        <div id="s11" class="square" onclick="squareClick(11);">
+        </div>
+        <div id="s12" class="square" onclick="squareClick(12);">
+        </div>
+        <div id="s13" class="square" onclick="squareClick(13);">
+        </div>
+        <div id="s14" class="square" onclick="squareClick(14);">
+        </div>
+        <div id="s15" class="square" onclick="squareClick(15);">
+        </div>
+    </div>
+    <div class="row">
+        <div id="s16" class="square"onclick="squareClick(16);">
+        </div>
+        <div id="s17" class="square"onclick="squareClick(17);">
+        </div>
+        <div id="s18" class="square"onclick="squareClick(18);">
+        </div>
+        <div id="s19" class="square"onclick="squareClick(19);">
+        </div>
+        <div id="s20" class="square"onclick="squareClick(20);">
+        </div>
+    </div>
+    <div class="row">
+        <div id="s21" class="square" onclick="squareClick(21);">
+        </div>
+        <div id="s22" class="square" onclick="squareClick(22);">
+        </div>
+        <div id="s23" class="square" onclick="squareClick(23);">
+        </div>
+        <div id="s24" class="square" onclick="squareClick(24);">
+        </div>
+        <div id="s25" class="square" onclick="squareClick(25);">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+	});
+</script>
+</body>
+</html>
