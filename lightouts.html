@@ -27,6 +27,11 @@
     {
         background-color: #FF82D6;
     }
+	
+	.maybe
+    {
+        background-color: #00F;
+    }
     
     .row
     {
@@ -105,12 +110,15 @@
 		this.id = id;
 		this.state = 'off';
 		this.unstate = 'on';
+		this.tristate = 'maybe';
+		
 	}
 	
 	Square.prototype.Toggle = function() {
 		var tempstate = this.state;
 		this.state = this.unstate;
-		this.unstate = tempstate;
+		this.unstate = this.tristate;
+		this.tristate = tempstate;
 	}
 	
 	Square.prototype.Click = function() {
@@ -148,6 +156,10 @@
 		return this.unstate;
 	}
 	
+	Square.prototype.GetTristate = function() {
+		return this.tristate;
+	}
+	
 	function DummySquare() { };
 	
 	DummySquare.prototype = new Square(0);
@@ -159,6 +171,7 @@
 	DummySquare.prototype.SetRight = function() { };
 	DummySquare.prototype.GetState = function() { };
 	DummySquare.prototype.GetUnstate = function() { };
+	DummySquare.prototype.GetTristate = function() { };
 	
 	function squareClick(y,x) {
 		squares[y][x].Click();
@@ -171,6 +184,7 @@
 				i = (y-1)*5 + x;
 				var UIsquare = $("#s"+i);
 				
+				UIsquare.removeClass(squares[y][x].GetTristate());
 				UIsquare.removeClass(squares[y][x].GetUnstate());
 				UIsquare.addClass(squares[y][x].GetState());
 			}
@@ -206,21 +220,23 @@
 			squares[5][i].SetBottom(squares[6][i]);
 		}
 		
-		for(var y = 1; y <= 5; y++) {
-			for(var x = 1; x <= 5; x++) {
-				square = squares[y][x];
-			   
-				var onOff = Math.floor((Math.random()*2)+1) - 1;
+		for (var t = 0; t < 13; t++) { 
+			for(var y = 1; y <= 5; y++) {
+				for(var x = 1; x <= 5; x++) {
+					square = squares[y][x];
+				   
+					var onOff = Math.floor((Math.random()*2)+1) - 1;
 
-				var outcomes = new Array();
-				outcomes[0] = function(square) { };
-				outcomes[1] = function(square) { square.Click(); };
+					var outcomes = new Array();
+					outcomes[0] = function(square) { };
+					outcomes[1] = function(square) { square.Click(); };
 
-				outcomes[onOff](square);
+					outcomes[onOff](square);
+				}
 			}
-		}
 		
-		draw();
+			draw();
+		}
 	});
 </script>
 </body>
