@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Lights Out</title>
+<title>Lights Out - No If</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <style>
     #board
@@ -38,69 +38,189 @@
 
 <div id="board">
     <div class="row">
-        <div id="s1" class="square" onclick="squareClick(1);">
+        <div id="s1" class="square" onclick="squareClick(1,1);">
         </div>
-        <div id="s2" class="square" onclick="squareClick(2);">
+        <div id="s2" class="square" onclick="squareClick(1,2);">
         </div>
-        <div id="s3" class="square" onclick="squareClick(3);">
+        <div id="s3" class="square" onclick="squareClick(1,3);">
         </div>
-        <div id="s4" class="square" onclick="squareClick(4);">
+        <div id="s4" class="square" onclick="squareClick(1,4);">
         </div>
-        <div id="s5" class="square" onclick="squareClick(5);">
-        </div>
-    </div>
-    <div class="row">
-        <div id="s6" class="square" onclick="squareClick(6);">
-        </div>
-        <div id="s7" class="square" onclick="squareClick(7);">
-        </div>
-        <div id="s8" class="square" onclick="squareClick(8);">
-        </div>
-        <div id="s9" class="square" onclick="squareClick(9);">
-        </div>
-        <div id="s10" class="square" onclick="squareClick(10);">
+        <div id="s5" class="square" onclick="squareClick(1,5);">
         </div>
     </div>
     <div class="row">
-        <div id="s11" class="square" onclick="squareClick(11);">
+        <div id="s6" class="square" onclick="squareClick(2,1);">
         </div>
-        <div id="s12" class="square" onclick="squareClick(12);">
+        <div id="s7" class="square" onclick="squareClick(2,2);">
         </div>
-        <div id="s13" class="square" onclick="squareClick(13);">
+        <div id="s8" class="square" onclick="squareClick(2,3);">
         </div>
-        <div id="s14" class="square" onclick="squareClick(14);">
+        <div id="s9" class="square" onclick="squareClick(2,4);">
         </div>
-        <div id="s15" class="square" onclick="squareClick(15);">
-        </div>
-    </div>
-    <div class="row">
-        <div id="s16" class="square"onclick="squareClick(16);">
-        </div>
-        <div id="s17" class="square"onclick="squareClick(17);">
-        </div>
-        <div id="s18" class="square"onclick="squareClick(18);">
-        </div>
-        <div id="s19" class="square"onclick="squareClick(19);">
-        </div>
-        <div id="s20" class="square"onclick="squareClick(20);">
+        <div id="s10" class="square" onclick="squareClick(2,5);">
         </div>
     </div>
     <div class="row">
-        <div id="s21" class="square" onclick="squareClick(21);">
+        <div id="s11" class="square" onclick="squareClick(3,1);">
         </div>
-        <div id="s22" class="square" onclick="squareClick(22);">
+        <div id="s12" class="square" onclick="squareClick(3,2);">
         </div>
-        <div id="s23" class="square" onclick="squareClick(23);">
+        <div id="s13" class="square" onclick="squareClick(3,3);">
         </div>
-        <div id="s24" class="square" onclick="squareClick(24);">
+        <div id="s14" class="square" onclick="squareClick(3,4);">
         </div>
-        <div id="s25" class="square" onclick="squareClick(25);">
+        <div id="s15" class="square" onclick="squareClick(3,5);">
+        </div>
+    </div>
+    <div class="row">
+        <div id="s16" class="square"onclick="squareClick(4,1);">
+        </div>
+        <div id="s17" class="square"onclick="squareClick(4,2);">
+        </div>
+        <div id="s18" class="square"onclick="squareClick(4,3);">
+        </div>
+        <div id="s19" class="square"onclick="squareClick(4,4);">
+        </div>
+        <div id="s20" class="square"onclick="squareClick(4,5);">
+        </div>
+    </div>
+    <div class="row">
+        <div id="s21" class="square" onclick="squareClick(5,1);">
+        </div>
+        <div id="s22" class="square" onclick="squareClick(5,2);">
+        </div>
+        <div id="s23" class="square" onclick="squareClick(5,3);">
+        </div>
+        <div id="s24" class="square" onclick="squareClick(5,4);">
+        </div>
+        <div id="s25" class="square" onclick="squareClick(5,5);">
         </div>
     </div>
 </div>
 <script type="text/javascript">
+	var squares = new Array();
+	
+	function Square(id) {
+		this.id = id;
+		this.state = 'off';
+		this.unstate = 'on';
+	}
+	
+	Square.prototype.Toggle = function() {
+		var tempstate = this.state;
+		this.state = this.unstate;
+		this.unstate = tempstate;
+	}
+	
+	Square.prototype.Click = function() {
+		this.Toggle();
+				
+		this.top.Toggle();
+		this.bottom.Toggle();
+		this.left.Toggle();
+		this.right.Toggle();
+	}
+	
+	Square.prototype.GetState = function() {
+		return this.state;
+	}
+	
+	Square.prototype.SetTop = function(square) {
+		this.top = square;
+		square.SetBottom(this);
+	}
+	
+	Square.prototype.SetBottom = function(square) {
+		this.bottom = square;
+	}
+	
+	Square.prototype.SetLeft = function(square) {
+		this.left = square;
+		square.SetRight(this);
+	}
+	
+	Square.prototype.SetRight = function(square) {
+		this.right = square;
+	}
+	
+	Square.prototype.GetUnstate = function() {
+		return this.unstate;
+	}
+	
+	function DummySquare() { };
+	
+	DummySquare.prototype = new Square(0);
+	
+	DummySquare.prototype.Toggle = function() { };
+	DummySquare.prototype.SetTop = function() { };
+	DummySquare.prototype.SetBottom = function() { };
+	DummySquare.prototype.SetLeft = function() { };
+	DummySquare.prototype.SetRight = function() { };
+	DummySquare.prototype.GetState = function() { };
+	DummySquare.prototype.GetUnstate = function() { };
+	
+	function squareClick(y,x) {
+		squares[y][x].Click();
+		draw();
+	}
+	
+	function draw() {
+		for(var y = 1; y <= 5; y++) {
+			for(var x = 1; x <= 5; x++) {
+				i = (y-1)*5 + x;
+				var UIsquare = $("#s"+i);
+				
+				UIsquare.removeClass(squares[y][x].GetUnstate());
+				UIsquare.addClass(squares[y][x].GetState());
+			}
+		}
+	}
+
 	$(document).ready(function() {
+	
+		squares[0] = new Array();
+		for(var i = 0; i <= 6; i++) {
+			squares[0][i] = new DummySquare();
+		}
 		
+		for(var y = 1; y <= 5; y++) {
+			squares[y] = new Array();
+			
+			squares[y][0] = new DummySquare();
+			
+			for(var x = 1; x <= 5; x++) {
+				squares[y][x] = new Square((y-1)*5 + x);
+				
+				squares[y][x].SetTop(squares[y-1][x]);
+				squares[y][x].SetLeft(squares[y][x-1]);
+			}
+			
+			squares[y][6] = new DummySquare();
+			squares[y][5].SetRight(squares[y][6]);
+		}
+		
+		squares[6] = new Array();
+		for(var i = 0; i <= 6; i++) {
+			squares[6][i] = new DummySquare();
+			squares[5][i].SetBottom(squares[6][i]);
+		}
+		
+		for(var y = 1; y <= 5; y++) {
+			for(var x = 1; x <= 5; x++) {
+				square = squares[y][x];
+			   
+				var onOff = Math.floor((Math.random()*2)+1) - 1;
+
+				var outcomes = new Array();
+				outcomes[0] = function(square) { };
+				outcomes[1] = function(square) { square.Click(); };
+
+				outcomes[onOff](square);
+			}
+		}
+		
+		draw();
 	});
 </script>
 </body>
